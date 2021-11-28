@@ -19,5 +19,11 @@ public class Employee {
         this.pob = pob;
     }
 
-
+    @Override
+    public String toString() {
+        return "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", dob=" + dob +
+                ", pob='" + pob + '\'';
+    }
 }

@@ -48,4 +48,13 @@ public class Tree<T> {
             }
         }
     }
+
+    public void inOrder(Node<T> localRoot) {
+        if (localRoot != null) {
+            inOrder(localRoot.leftChild);
+            System.out.println(localRoot.data);
+            inOrder(localRoot.rightChild);
+        }
+    }
+
 }
