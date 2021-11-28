@@ -1,5 +1,6 @@
 package minhho.controllers;
 
+import minhho.bst.Node;
 import minhho.bst.Tree;
 import minhho.models.Employee;
 
@@ -13,6 +14,19 @@ import static minhho.utils.ValidityChecker.isNumeric;
 
 public class MainController {
     static Tree<Employee> employeeTree = new Tree<>();
+
+    //TODO: delete dummies
+    static {
+        employeeTree.insert(10, new Employee(10, "Nguyen Van A",
+                LocalDate.of(1999, 10, 10), "Can Tho"));
+        employeeTree.insert(4, new Employee(4, "Tran Thi B",
+                LocalDate.of(1989, 3, 20), "HCMC"));
+        employeeTree.insert(20, new Employee(20, "Le Ngoc C",
+                LocalDate.of(2000, 10, 10), "Da Lat"));
+        employeeTree.insert(2, new Employee(2, "Nguyen My",
+                LocalDate.of(1999, 04, 22), "Hanoi"));
+    }
+
 
     public static void run() {
         boolean isContinued = true;
@@ -66,10 +80,10 @@ public class MainController {
                         inorderTraversal();
                         return;
                     case 3:
-                        System.out.println("Select 3");
+                        bftTraversal();
                         return;
                     case 4:
-                        System.out.println("Select 4");
+                        searchById();
                         return;
                     case 5:
                         System.out.println("Select 5");
@@ -95,6 +109,35 @@ public class MainController {
                 input = sc.nextLine();
             }
         }
+    }
+
+    /**
+     * Performs BFT traversal
+     */
+    private static void bftTraversal() {
+        System.out.println("Performing BST traversal...");
+        employeeTree.bft();
+    }
+
+    /**
+     * Performs searchById using BST
+     */
+    private static void searchById() {
+        Scanner sc = new Scanner(System.in);
+        String idStr;
+        int id;
+
+        System.out.print("Insert id to search: ");
+        idStr = sc.nextLine();
+        id = Integer.valueOf(idStr);
+
+        Node<Employee> node = employeeTree.find(id);
+        if (node == null) {
+            System.out.println("Not found");
+        } else {
+            System.out.println(node.getData());
+        }
+
     }
 
     /**
@@ -231,4 +274,9 @@ public class MainController {
         MONTH,
         DAY
     }
+
+    /**
+     * For test only
+     */
+
 }
