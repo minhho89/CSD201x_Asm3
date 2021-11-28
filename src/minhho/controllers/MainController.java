@@ -86,7 +86,7 @@ public class MainController {
                         searchById();
                         return;
                     case 5:
-                        System.out.println("Select 5");
+                        deleteById();
                         return;
                     case 6:
                         System.out.println("Select 6");
@@ -112,6 +112,36 @@ public class MainController {
     }
 
     /**
+     * Performs Delete node by ID
+     */
+    private static void deleteById() {
+
+        Scanner sc = new Scanner(System.in);
+        String idStr;
+        int id;
+
+        System.out.println("Inset id to delete: ");
+        idStr = sc.nextLine();
+
+        while(true) {
+            if (isNumeric(idStr)) {
+                id = Integer.valueOf(idStr);
+                break;
+            } else {
+                System.out.print("Invalid input. Try again.");
+                idStr = sc.nextLine();
+            }
+        }
+
+        if (employeeTree.delete(id)) {
+            System.out.println("Employee " + id + " has been deleted.");
+        } else {
+            System.out.println("Not found.");
+        }
+
+    }
+
+    /**
      * Performs BFT traversal
      */
     private static void bftTraversal() {
@@ -129,7 +159,16 @@ public class MainController {
 
         System.out.print("Insert id to search: ");
         idStr = sc.nextLine();
-        id = Integer.valueOf(idStr);
+
+        while(true) {
+            if (isNumeric(idStr)) {
+                id = Integer.valueOf(idStr);
+                break;
+            } else {
+                System.out.print("Invalid input. Try again.");
+                idStr = sc.nextLine();
+            }
+        }
 
         Node<Employee> node = employeeTree.find(id);
         if (node == null) {
@@ -274,9 +313,5 @@ public class MainController {
         MONTH,
         DAY
     }
-
-    /**
-     * For test only
-     */
 
 }
