@@ -16,9 +16,11 @@ public class Tree<T> {
     }
 
     public Node<T> find (int key) {
-        Node<T> current = root;                 // assumes non-empty tree
+
+        Node<T> current = root;            // assumes non-empty tree
+
         while(current.id != key) {
-            if (key < current.id)               // go left
+            if (key < current.getId())               // go left
                 current = current.leftChild;
             else
                 current = current.rightChild;   // go right
@@ -28,7 +30,20 @@ public class Tree<T> {
         return current;                         // found
     }
 
+    public boolean isDuplicate(int key) {
+
+        if (root == null) {
+            return false;
+        }
+
+        Node<T> foundNode = find(key);
+        if (foundNode != null) return true;
+        return false;
+    }
+
+
     public void insert(int id, T data) {
+
         Node<T> newNode = new Node<>();                 // make new node
         newNode.id = id;
         newNode.data = data;                            // insert data
