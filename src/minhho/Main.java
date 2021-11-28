@@ -1,8 +1,10 @@
 package minhho;
 
+import minhho.controllers.MainController;
+
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        MainController.run();
     }
 }
