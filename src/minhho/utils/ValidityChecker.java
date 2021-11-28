@@ -1,6 +1,11 @@
 package minhho.utils;
 
-public class ValidityChecker {
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+
+public class ValidityChecker{
 
     public static boolean isNumeric(String input) {
         try {
@@ -10,5 +15,15 @@ public class ValidityChecker {
             return false;
         }
     }
+
+    public static boolean isDateValid(int year, int month, int day) {
+        try {
+            LocalDate.of(year, month, day);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 
 }

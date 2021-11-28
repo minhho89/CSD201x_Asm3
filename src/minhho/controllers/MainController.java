@@ -1,6 +1,5 @@
 package minhho.controllers;
 
-import minhho.bst.Node;
 import minhho.bst.Tree;
 import minhho.models.Employee;
 
@@ -9,16 +8,16 @@ import java.util.Scanner;
 
 import static java.lang.System.exit;
 import static minhho.ui.MainMenuUI.printMenu;
+import static minhho.utils.ValidityChecker.isDateValid;
 import static minhho.utils.ValidityChecker.isNumeric;
 
 public class MainController {
-
     static Tree<Employee> employeeTree = new Tree<>();
 
     public static void run() {
         boolean isContinue = true;
         printMenu();
-        while(isContinue) {
+        while (isContinue) {
             performSelect();
             isContinue = isContinue();
         }
@@ -29,7 +28,7 @@ public class MainController {
 
         System.out.print("Do you want to continue using this program? (Y/N): ");
         String input = sc.nextLine();
-        while(true) {
+        while (true) {
             if (input.equalsIgnoreCase("Y")) {
                 return true;
             } else if (input.equalsIgnoreCase("N")) {
@@ -91,35 +90,81 @@ public class MainController {
         }
     }
 
-    //TODO: add validity
+    private static int checkIntInputValidity(Scanner sc, String input, CheckType type) {
+        int result;
+        while (true) {
+            if (isNumeric(input)) {
+                result = Integer.valueOf(input);
+                switch (type) {
+                    case ID:
+                        return result;
+                    case YEAR:
+                        if (result < 1900) {
+                            System.out.print("Invalid value. Year must be greater than 1900. Please try again: ");
+                            input = sc.nextLine();
+                            break;
+                        }
+                        return result;
+                    case MONTH:
+                        if (result < 1 || result > 12) {
+                            System.out.print("Invalid value. Try again: ");
+                            input = sc.nextLine();
+                            break;
+                        }
+                        return result;
+                    case DAY:
+                        if (result < 1 || result > 31) {
+                            System.out.println("Invalid value. Try again: ");
+                            input = sc.nextLine();
+                            break;
+                        }
+                        return result;
+                }
+            } else {
+                System.out.print("Invalid input. Please try again: ");
+                input = sc.nextLine();
+            }
+        }
+    }
+
     private static void insertToBST() {
 
         Scanner sc = new Scanner(System.in);
         Employee e = new Employee();
-
+        LocalDate dob;
         System.out.println("Please insert new Employee information: ");
 
         System.out.print("Employee id: ");
         String idStr = sc.nextLine();
-        int id = Integer.valueOf(idStr);
+        int id = checkIntInputValidity(sc, idStr, CheckType.ID);
 
         System.out.print("Employee name: ");
         String name = sc.nextLine();
 
-        System.out.println("Employee's Birthdate");
-        System.out.print("Year: ");
-        String yStr = sc.nextLine();
+        while (true) {
+            System.out.println("Employee's Birthdate");
+            System.out.print("Year: ");
+            String yStr = sc.nextLine();
+            int year = checkIntInputValidity(sc, yStr, CheckType.YEAR);
 
-        System.out.print("Month: ");
-        String mStr = sc.nextLine();
+            System.out.print("Month: ");
+            String mStr = sc.nextLine();
+            int month = checkIntInputValidity(sc, mStr, CheckType.MONTH);
 
-        System.out.print("Day: ");
-        String dStr = sc.nextLine();
+            System.out.print("Day: ");
+            String dStr = sc.nextLine();
+            int day = checkIntInputValidity(sc, dStr, CheckType.DAY);
+
+            if (isDateValid(year, month, day)) {
+                dob = LocalDate.of(year, month, day);
+                break;
+            } else {
+                System.out.println("Invalid date input. Try again: ");
+            }
+        }
 
         System.out.print("Employee's Place of Birth: ");
         String pob = sc.nextLine();
-
-        LocalDate dob = LocalDate.of(Integer.valueOf(yStr), Integer.valueOf(mStr), Integer.valueOf(dStr));
 
         // Adding to Object
         e.setId(id);
@@ -141,4 +186,10 @@ public class MainController {
         return false;
     }
 
+    private enum CheckType {
+        ID,
+        YEAR,
+        MONTH,
+        DAY
+    }
 }
