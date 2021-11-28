@@ -80,4 +80,20 @@ public class Tree<T> {
         }
     }
 
+    public void bfs() {
+
+    }
+
+    public int calculateTreeHeight(Node<T> root) {
+        if (root == null) {
+            return 0;
+        } else {
+            // height of left subtree
+            int lsh = calculateTreeHeight(root.leftChild);
+            // height of right subtree
+            int rsh = calculateTreeHeight(root.rightChild);
+            // height in each recursive call
+            return Math.max(lsh, rsh) + 1;
+        }
+    }
 }
