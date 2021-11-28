@@ -15,15 +15,19 @@ public class MainController {
     static Tree<Employee> employeeTree = new Tree<>();
 
     public static void run() {
-        boolean isContinue = true;
+        boolean isContinued = true;
         printMenu();
-        while (isContinue) {
+        while (isContinued) {
             performSelect();
-            isContinue = isContinue();
+            isContinued = isContinued();
         }
     }
 
-    public static boolean isContinue() {
+    /**
+     * Stops program to exit by confirming with user if they want to continue using it or not?
+     * @return true if continued, false if not
+     */
+    public static boolean isContinued() {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Do you want to continue using this program? (Y/N): ");
@@ -49,7 +53,7 @@ public class MainController {
         String input = sc.nextLine();
 
         while (true) {
-            if (isSelectValid(input)) {
+            if (isMainMenuSelectValid(input)) {
                 int choice = Integer.valueOf(input);
                 switch (choice) {
                     case 1:
@@ -90,6 +94,13 @@ public class MainController {
         }
     }
 
+    /**
+     * Check validity for integer value input from users
+     * @param sc    Scanner
+     * @param input input value
+     * @param type  checking type (ID isNumeric, YEAR > 1900, 0< MONTH < 13, 0 < DAY < 32)
+     * @return true if valid, false if invalid
+     */
     private static int checkIntInputValidity(Scanner sc, String input, CheckType type) {
         int result;
         while (true) {
@@ -177,7 +188,12 @@ public class MainController {
         System.out.println("New employee has been inserted to the BST.");
     }
 
-    private static boolean isSelectValid(String input) {
+    /**
+     * Checks validity of selection in MainMenu
+     * @param input user's input
+     * @return true if valid, false if invalid
+     */
+    private static boolean isMainMenuSelectValid(String input) {
         if (isNumeric(input) && (input.equals("0") ||
                 input.equals("1") || input.equals("2") || input.equals("3") ||
                 input.equals("4") || input.equals("5") || input.equals("6") || input.equals("7") ||
