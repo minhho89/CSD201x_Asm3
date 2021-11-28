@@ -1,10 +1,10 @@
 package minhho;
 
-import minhho.ui.MainMenuController;
+import minhho.controllers.MainController;
 
 public class Main {
 
     public static void main(String[] args) {
-        MainMenuController.run();
+        MainController.run();
     }
 }
