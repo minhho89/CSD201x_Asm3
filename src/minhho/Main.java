@@ -1,6 +1,7 @@
 package minhho;
 
 import minhho.controllers.MainController;
+import minhho.utils.DataGenerator;
 
 public class Main {
 
