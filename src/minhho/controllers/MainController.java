@@ -45,6 +45,9 @@ public class MainController {
 
     }
 
+    /**
+     * Maps user's input with program's feature
+     */
     public static void performSelect() {
 
         Scanner sc = new Scanner(System.in);
@@ -60,7 +63,7 @@ public class MainController {
                         insertToBST();
                         return;
                     case 2:
-                        System.out.println("Select 2");
+                        inorderTraversal();
                         return;
                     case 3:
                         System.out.println("Select 3");
@@ -95,6 +98,17 @@ public class MainController {
     }
 
     /**
+     * Performs in-order traversal for BST
+     */
+    private static void inorderTraversal() {
+        if (employeeTree.getRoot() == null) {
+            System.out.println("BST is empty.");
+        } else {
+            employeeTree.inOrder(employeeTree.getRoot());
+        }
+    }
+
+    /**
      * Check validity for integer value input from users
      * @param sc    Scanner
      * @param input input value
@@ -108,6 +122,12 @@ public class MainController {
                 result = Integer.valueOf(input);
                 switch (type) {
                     case ID:
+                        if (employeeTree.isDuplicate(result)) {
+                            System.out.println("ID duplicated. Please try again");
+                            System.out.print("Employee id: ");
+                            input = sc.nextLine();
+                            break;
+                        }
                         return result;
                     case YEAR:
                         if (result < 1900) {
@@ -138,6 +158,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Perform insert new node to BST with validity checking features
+     */
     private static void insertToBST() {
 
         Scanner sc = new Scanner(System.in);
