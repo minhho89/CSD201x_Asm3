@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Employee {
 
-    String id;          // id
+    int id;          // id
     String name;        // full name
     LocalDate dob;      // date of birth
     String pob;         // place of birth
@@ -12,7 +12,7 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String id, String name, LocalDate dob, String pob) {
+    public Employee(int id, String name, LocalDate dob, String pob) {
         this.id = id;
         this.name = name;
         this.dob = dob;

@@ -3,8 +3,16 @@ package minhho.bst;
 public class Tree<T> {
     private Node<T> root;
 
+    public Tree() {
+
+    }
+
     public Tree(Node<T> root) {
         this.root = root;
+    }
+
+    public Node<T> getRoot() {
+        return root;
     }
 
     public Node<T> find (int key) {
