@@ -1,5 +1,7 @@
 package minhho.bst;
 
+import minhho.models.Employee;
+
 public class Tree<T> {
     private Node<T> root;
 
@@ -111,5 +113,84 @@ public class Tree<T> {
         for (int i = 0; i < height; i++) {
             levelOrderTraversal(root, i);
         }
+    }
+
+    public boolean delete(int key) {
+        Node<T> current = root;
+        Node<T> parent = root;
+        boolean isLeftChild = true;
+
+        while(current.id != key) {  // search for node
+            parent = current;
+            if (key < current.id) {         // go left?
+                isLeftChild = true;
+                current = current.leftChild;
+            } else {
+                isLeftChild = false;        // or go right?
+                current = current.getRightChild();
+            }
+
+            if (current == null) {          // end of the line,
+                return false;               // not found
+            }
+
+        }
+
+        // found node
+        // if no children, just delete
+        if (current.leftChild == null && current.rightChild == null) {
+            if (current == root) root = null;
+            else if (isLeftChild) parent.leftChild = null;   // disconnect from parent
+            else parent.rightChild = null;                   // disconnect from parent
+        }
+
+        // if no right child, replace with left subtree
+        else if (current.rightChild == null) {
+            if (current == root) root = current.leftChild;
+            else if (isLeftChild) parent.leftChild = current.leftChild;
+            else parent.rightChild = current.leftChild;
+        }
+
+        // if no left child, replace with right subtree
+        else if (current.leftChild == null) {
+            if (current == root) root = current.rightChild;
+            else if (isLeftChild) parent.leftChild = current.rightChild;
+            else parent.rightChild = current.rightChild;
+        }
+
+        // two children, replace with inorder successor
+        else {
+            // get successor of node to delete
+            Node<T> successor = getSuccessor(current);
+
+            // connect parent of current to successor instead
+            if (current == root) root = successor;
+            else if (isLeftChild) parent.leftChild = successor;
+            else parent.rightChild = successor;
+
+            // Connect successor to current's left child
+            successor.leftChild = current.leftChild;
+        }
+        return true;
+    }
+
+
+
+    private Node<T> getSuccessor(Node<T> delNode) {
+        Node<T> successorParent = delNode;
+        Node<T> succcessor = delNode;
+        Node<T> current = delNode.rightChild;   // go to right child
+
+        while (current != null) {               // go to end
+            successorParent = succcessor;       // left children
+            succcessor = current;
+            current = current.leftChild;        // go to left child
+        }
+
+        if (succcessor != delNode.rightChild) {     // if not successor,
+            successorParent.leftChild = succcessor.rightChild;  // right child,
+            succcessor.rightChild = delNode.rightChild;         // make connections
+        }
+        return succcessor;
     }
 }
