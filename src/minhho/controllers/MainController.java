@@ -45,6 +45,9 @@ public class MainController {
 
     }
 
+    /**
+     * Maps user's input with program's feature
+     */
     public static void performSelect() {
 
         Scanner sc = new Scanner(System.in);
@@ -144,6 +147,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Perform insert new node to BST with validity checking features
+     */
     private static void insertToBST() {
 
         Scanner sc = new Scanner(System.in);
