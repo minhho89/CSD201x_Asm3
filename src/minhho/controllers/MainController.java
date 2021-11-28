@@ -1,5 +1,10 @@
 package minhho.controllers;
 
+import minhho.bst.Node;
+import minhho.bst.Tree;
+import minhho.models.Employee;
+
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
@@ -7,6 +12,8 @@ import static minhho.ui.MainMenuUI.printMenu;
 import static minhho.utils.ValidityChecker.isNumeric;
 
 public class MainController {
+
+    static Tree<Employee> employeeTree = new Tree<>();
 
     public static void run() {
         boolean isContinue = true;
@@ -47,7 +54,7 @@ public class MainController {
                 int choice = Integer.valueOf(input);
                 switch (choice) {
                     case 1:
-                        System.out.println("Select 1");
+                        insertToBST();
                         return;
                     case 2:
                         System.out.println("Select 2");
@@ -82,6 +89,47 @@ public class MainController {
                 input = sc.nextLine();
             }
         }
+    }
+
+    //TODO: add validity
+    private static void insertToBST() {
+
+        Scanner sc = new Scanner(System.in);
+        Employee e = new Employee();
+
+        System.out.println("Please insert new Employee information: ");
+
+        System.out.print("Employee id: ");
+        String idStr = sc.nextLine();
+        int id = Integer.valueOf(idStr);
+
+        System.out.print("Employee name: ");
+        String name = sc.nextLine();
+
+        System.out.println("Employee's Birthdate");
+        System.out.print("Year: ");
+        String yStr = sc.nextLine();
+
+        System.out.print("Month: ");
+        String mStr = sc.nextLine();
+
+        System.out.print("Day: ");
+        String dStr = sc.nextLine();
+
+        System.out.print("Employee's Place of Birth: ");
+        String pob = sc.nextLine();
+
+        LocalDate dob = LocalDate.of(Integer.valueOf(yStr), Integer.valueOf(mStr), Integer.valueOf(dStr));
+
+        // Adding to Object
+        e.setId(id);
+        e.setName(name);
+        e.setDob(dob);
+        e.setPob(pob);
+
+        employeeTree.insert(id, e);
+
+        System.out.println("New employee has been inserted to the BST.");
     }
 
     private static boolean isSelectValid(String input) {
