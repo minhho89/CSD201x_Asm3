@@ -108,6 +108,12 @@ public class MainController {
                 result = Integer.valueOf(input);
                 switch (type) {
                     case ID:
+                        if (employeeTree.isDuplicate(result)) {
+                            System.out.println("ID duplicated. Please try again");
+                            System.out.print("Employee id: ");
+                            input = sc.nextLine();
+                            break;
+                        }
                         return result;
                     case YEAR:
                         if (result < 1900) {
