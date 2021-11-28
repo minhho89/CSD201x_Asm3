@@ -18,7 +18,7 @@ public class Tree<T> {
     public Node<T> find (int key) {
         Node<T> current = root;                 // assumes non-empty tree
         while(current.id != key) {
-            if (key < current.id)               // go left
+            if (key < current.getId())               // go left
                 current = current.leftChild;
             else
                 current = current.rightChild;   // go right

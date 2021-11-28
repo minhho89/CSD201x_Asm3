@@ -4,10 +4,10 @@ import java.time.LocalDate;
 
 public class Employee {
 
-    int id;          // id
-    String name;        // full name
-    LocalDate dob;      // date of birth
-    String pob;         // place of birth
+    private int id;          // id
+    private String name;        // full name
+    private LocalDate dob;      // date of birth
+    private String pob;         // place of birth
 
     public Employee() {
     }
@@ -16,6 +16,38 @@ public class Employee {
         this.id = id;
         this.name = name;
         this.dob = dob;
+        this.pob = pob;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getDob() {
+        return dob;
+    }
+
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
+    }
+
+    public String getPob() {
+        return pob;
+    }
+
+    public void setPob(String pob) {
         this.pob = pob;
     }
 
