@@ -63,7 +63,7 @@ public class MainController {
                         insertToBST();
                         return;
                     case 2:
-                        System.out.println("Select 2");
+                        inorderTraversal();
                         return;
                     case 3:
                         System.out.println("Select 3");
@@ -94,6 +94,17 @@ public class MainController {
                 System.out.print("Invalid input. Please try again (0 - 9): ");
                 input = sc.nextLine();
             }
+        }
+    }
+
+    /**
+     * Performs in-order traversal for BST
+     */
+    private static void inorderTraversal() {
+        if (employeeTree.getRoot() == null) {
+            System.out.println("BST is empty.");
+        } else {
+            employeeTree.inOrder(employeeTree.getRoot());
         }
     }
 
