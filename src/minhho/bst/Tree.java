@@ -80,8 +80,17 @@ public class Tree<T> {
         }
     }
 
-    public void bfs() {
+    public void levelOrderTraversal(Node<T> node, int level) {
+        if (node == null) {
+            return;
+        }
 
+        if (level == 0) {
+            System.out.println(node.data);
+        } else {
+            levelOrderTraversal(node.leftChild, level - 1);
+            levelOrderTraversal(node.rightChild, level - 1);
+        }
     }
 
     public int calculateTreeHeight(Node<T> root) {
@@ -94,6 +103,13 @@ public class Tree<T> {
             int rsh = calculateTreeHeight(root.rightChild);
             // height in each recursive call
             return Math.max(lsh, rsh) + 1;
+        }
+    }
+
+    public void bfs() {
+        int height = calculateTreeHeight(root);
+        for (int i = 0; i < height; i++) {
+            levelOrderTraversal(root, i);
         }
     }
 }
