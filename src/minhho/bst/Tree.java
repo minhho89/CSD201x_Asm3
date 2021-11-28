@@ -17,10 +17,10 @@ public class Tree<T> {
 
     public Node<T> find (int key) {
 
-        Node<T> current = root;            // assumes non-empty tree
+        Node<T> current = root;                 // assumes non-empty tree
 
         while(current.id != key) {
-            if (key < current.getId())               // go left
+            if (key < current.getId())          // go left
                 current = current.leftChild;
             else
                 current = current.rightChild;   // go right
@@ -55,7 +55,7 @@ public class Tree<T> {
             Node<T> parent;
             while (true) {
                 parent = current;
-                if (id < current.id) {                 // go left
+                if (id < current.id) {                  // go left
                     current = current.leftChild;
                     if (current == null) {              // at the leaf
                         parent.leftChild = newNode;     // insert new node
@@ -106,7 +106,7 @@ public class Tree<T> {
         }
     }
 
-    public void bfs() {
+    public void bft() {
         int height = calculateTreeHeight(root);
         for (int i = 0; i < height; i++) {
             levelOrderTraversal(root, i);
