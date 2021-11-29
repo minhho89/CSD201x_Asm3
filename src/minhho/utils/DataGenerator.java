@@ -24,4 +24,16 @@ public class DataGenerator {
         myTree.inOrder(myTree.getRoot());
     }
 
+    public static void generateRightHeavyTree() {
+        myTree.insert(5, new Employee(5));
+        myTree.insert(10, new Employee(10));
+        myTree.insert(15, new Employee(15));
+    }
+
+    public static void generateLeftHeavyTree() {
+        myTree.insert(15, new Employee(15));
+        myTree.insert(10, new Employee(10));
+        myTree.insert(5, new Employee(5));
+    }
+
 }

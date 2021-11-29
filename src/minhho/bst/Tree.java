@@ -95,19 +95,104 @@ public class Tree<T> {
         }
     }
 
-    public int calculateTreeHeight(Node<T> root) {
-        if (root == null) {
-            return 0;
+    // update the height of a give node
+    private void updateHeight(Node<T> node) {
+        node.height = calculateTreeHeight(node);
+    }
+
+    // calculate the height of a give node
+    public int calculateTreeHeight(Node<T> node) {
+        if (node == null) {
+            return -1;
         } else {
             // height of left subtree
-            int lsh = calculateTreeHeight(root.leftChild);
+            int lsh = calculateTreeHeight(node.leftChild);
             // height of right subtree
-            int rsh = calculateTreeHeight(root.rightChild);
+            int rsh = calculateTreeHeight(node.rightChild);
             // height in each recursive call
             return Math.max(lsh, rsh) + 1;
         }
     }
 
+    // balance factor to decide the left heavy or right heavy cases
+    public int getBalance(Node<T> node) {
+        if (node == null) return 0;
+        return calculateTreeHeight(node.getLeftChild()) - calculateTreeHeight(node.getRightChild());
+    }
+
+    public void rightRotation(Node<T> node) {
+
+        // This will become new root node
+        Node<T> tempLeftChild = node.getLeftChild();
+        Node<T> grandChild = tempLeftChild.getRightChild();
+
+        // make rotation
+        // root node becomes tempLeftChild
+        tempLeftChild.setRightChild(node);
+        node.setLeftChild(grandChild);
+
+        // handle parents
+        if (grandChild != null) {
+            grandChild.setParentNode(node);
+        }
+
+        Node<T> tempParent = node.getParentNode();
+        node.setParentNode(tempLeftChild);
+        tempLeftChild.setParentNode(tempParent);
+
+        // if the given node is left child of its parent
+        if (tempLeftChild.getParentNode() != null && tempLeftChild.getParentNode().getLeftChild() == node) {
+            tempLeftChild.getParentNode().setLeftChild(tempLeftChild);
+        }
+        // if the given node is right child of its parent
+        if (tempLeftChild.getParentNode() != null && tempLeftChild.getParentNode().getRightChild() == node) {
+            tempLeftChild.getParentNode().setRightChild(tempLeftChild);
+        }
+        // if given node has no parent
+        if (node == root) root = tempLeftChild;
+
+        // after rotations the height change
+        updateHeight(node);
+        updateHeight(tempLeftChild);
+    }
+
+    public void leftRotation(Node<T> node) {
+
+        // This will become new root node
+        Node<T> tempRightChild = node.getRightChild();
+        Node<T> grandChild = tempRightChild.getLeftChild();
+
+        // make rotation
+        // root node becomes tempLeftChild
+        tempRightChild.setLeftChild(node);
+        node.setRightChild(grandChild);
+
+        // handle parents
+        if (grandChild != null) {
+            grandChild.setParentNode(node);
+        }
+
+        Node<T> tempParent = node.getParentNode();
+        node.setParentNode(tempRightChild);
+        tempRightChild.setParentNode(tempParent);
+
+        // if the given node is left child of its parent
+        if (tempRightChild.getParentNode() != null && tempRightChild.getParentNode().getLeftChild() == node) {
+            tempRightChild.getParentNode().setLeftChild(tempRightChild);
+        }
+        // if the given node is right child of its parent
+        if (tempRightChild.getParentNode() != null && tempRightChild.getParentNode().getRightChild() == node) {
+            tempRightChild.getParentNode().setRightChild(tempRightChild);
+        }
+        // if given node has no parent
+        if (node == root) root = tempRightChild;
+
+        // after rotations the height change
+        updateHeight(node);
+        updateHeight(tempRightChild);
+    }
+    
+    
     public void bft() {
         int height = calculateTreeHeight(root);
         for (int i = 0; i < height; i++) {
