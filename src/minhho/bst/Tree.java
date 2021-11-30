@@ -68,14 +68,12 @@ public class Tree<T> {
                     current = current.leftChild;
                     if (current == null) {              // at the leaf
                         parent.leftChild = newNode;     // insert new node
-                        newNode.setParentNode(parent);  // set parent node for new node
                         return;
                     }
                 } else {
                     current = current.rightChild;       // go right
                     if (current == null) {
                         parent.rightChild = newNode;
-                        newNode.setParentNode(parent);
                         return;
                     }
                 }
@@ -149,10 +147,6 @@ public class Tree<T> {
         }
     }
 
-    // update the height of a give node
-    private void updateHeight(Node<T> node) {
-        node.height = calculateTreeHeight(node);
-    }
 
     // calculate the height of a give node
     public int calculateTreeHeight(Node<T> node) {
@@ -168,121 +162,7 @@ public class Tree<T> {
         }
     }
 
-    // balance factor to decide the left heavy or right heavy cases
-    public int calculateBalanceFactor(Node<T> node) {
-        if (node == null) return 0;
-        return calculateTreeHeight(node.getLeftChild()) - calculateTreeHeight(node.getRightChild());
-    }
 
-    // balance the tree
-    public void makeBalance() {
-        Node<T> current = getLeftestLeaf();
-
-        if (current != null) {
-            Node<T> parent = current.getParentNode();
-            int balanceFactor = calculateBalanceFactor(current);
-            makeProperRotation(balanceFactor, current);
-        }
-    }
-
-    // decide rotate right or left
-    public void makeProperRotation(int balanceFactor, Node<T> node) {
-        if (balanceFactor > 1) { // left heavy, rotate right
-            if (node.getLeftChild() != null || node.getRightChild() != null) {
-                rightRotation(node);
-            }
-        } else if (balanceFactor < 1) { // right heavy, rotate left
-            if (node.getLeftChild() != null || node.getRightChild() != null) {
-                leftRotation(node);
-            }
-        }
-    }
-
-    // Get latest left leaf
-    public Node<T> getLeftestLeaf() {
-        Node<T> current = root;
-
-        if (root == null) return null;
-
-        while (current.leftChild != null) {
-            current = current.leftChild;
-        }
-        return current;
-    }
-
-    public void rightRotation(Node<T> node) {
-
-        // This will become new root node
-        Node<T> tempLeftChild = node.getLeftChild();
-        Node<T> grandChild = tempLeftChild.getRightChild();
-
-        // make rotation
-        // root node becomes tempLeftChild
-        tempLeftChild.setRightChild(node);
-        node.setLeftChild(grandChild);
-
-        // handle parents
-        if (grandChild != null) {
-            grandChild.setParentNode(node);
-        }
-
-        Node<T> tempParent = node.getParentNode();
-        node.setParentNode(tempLeftChild);
-        tempLeftChild.setParentNode(tempParent);
-
-        // if the given node is left child of its parent
-        if (tempLeftChild.getParentNode() != null && tempLeftChild.getParentNode().getLeftChild() == node) {
-            tempLeftChild.getParentNode().setLeftChild(tempLeftChild);
-        }
-        // if the given node is right child of its parent
-        if (tempLeftChild.getParentNode() != null && tempLeftChild.getParentNode().getRightChild() == node) {
-            tempLeftChild.getParentNode().setRightChild(tempLeftChild);
-        }
-        // if given node has no parent
-        if (node == root) root = tempLeftChild;
-
-        // after rotations the height change
-        updateHeight(node);
-        updateHeight(tempLeftChild);
-    }
-
-    public void leftRotation(Node<T> node) {
-
-        // This will become new root node
-        Node<T> tempRightChild = node.getRightChild();
-        Node<T> grandChild = tempRightChild.getLeftChild();
-
-        // make rotation
-        // root node becomes tempLeftChild
-        tempRightChild.setLeftChild(node);
-        node.setRightChild(grandChild);
-
-        // handle parents
-        if (grandChild != null) {
-            grandChild.setParentNode(node);
-        }
-
-        Node<T> tempParent = node.getParentNode();
-        node.setParentNode(tempRightChild);
-        tempRightChild.setParentNode(tempParent);
-
-        // if the given node is left child of its parent
-        if (tempRightChild.getParentNode() != null && tempRightChild.getParentNode().getLeftChild() == node) {
-            tempRightChild.getParentNode().setLeftChild(tempRightChild);
-        }
-        // if the given node is right child of its parent
-        if (tempRightChild.getParentNode() != null && tempRightChild.getParentNode().getRightChild() == node) {
-            tempRightChild.getParentNode().setRightChild(tempRightChild);
-        }
-        // if given node has no parent
-        if (node == root) root = tempRightChild;
-
-        // after rotations the height change
-        updateHeight(node);
-        updateHeight(tempRightChild);
-    }
-    
-    
     public void bft() {
         int height = calculateTreeHeight(root);
         for (int i = 0; i < height; i++) {

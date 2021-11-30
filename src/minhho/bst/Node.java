@@ -6,18 +6,11 @@ public class Node<T> {
     T data;
     Node<T> leftChild;
     Node<T> rightChild;
-    Node<T> parentNode;
-    int height;
+
 
     public Node() {
 
     }
-
-    public Node(T data, Node<T> parentNode) {
-        this.data = data;
-        this.parentNode = parentNode;
-    }
-
 
     public void displayNode() {
 
@@ -55,11 +48,4 @@ public class Node<T> {
         this.rightChild = rightChild;
     }
 
-    public Node<T> getParentNode() {
-        return parentNode;
-    }
-
-    public void setParentNode(Node<T> parentNode) {
-        this.parentNode = parentNode;
-    }
 }
