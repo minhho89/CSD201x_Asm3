@@ -1,0 +1,27 @@
+// add to MainController
+
+
+/*
+
+20
+└──15
+   └──10
+      └──5
+         ├──2
+         └──8
+/*
+
+ static {
+        employeeTree.insert(20, new Employee(20, "Nguyen Van A",
+                LocalDate.of(1999, 10, 10), "Can Tho"));
+        employeeTree.insert(15, new Employee(15, "Tran Thi B",
+                LocalDate.of(1989, 3, 20), "HCMC"));
+        employeeTree.insert(10, new Employee(10, "Le Ngoc C",
+                LocalDate.of(2000, 10, 10), "Da Lat"));
+        employeeTree.insert(5, new Employee(5, "Nguyen My",
+                LocalDate.of(1999, 04, 22), "Hanoi"));
+        employeeTree.insert(2, new Employee(2, "Nguyen My",
+                LocalDate.of(1999, 04, 22), "Hanoi"));
+        employeeTree.insert(8, new Employee(8, "Nguyen My",
+                LocalDate.of(1999, 04, 22), "Hanoi"));
+    }
