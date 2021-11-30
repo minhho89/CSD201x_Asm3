@@ -2,6 +2,9 @@ package minhho.bst;
 
 import minhho.models.Employee;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tree<T> {
     private Node<T> root;
 
@@ -15,6 +18,10 @@ public class Tree<T> {
 
     public Node<T> getRoot() {
         return root;
+    }
+
+    public void setRoot(Node<T> root) {
+        this.root = root;
     }
 
     public Node<T> find (int key) {
@@ -61,12 +68,14 @@ public class Tree<T> {
                     current = current.leftChild;
                     if (current == null) {              // at the leaf
                         parent.leftChild = newNode;     // insert new node
+                        newNode.setParentNode(parent);  // set parent node for new node
                         return;
                     }
                 } else {
                     current = current.rightChild;       // go right
                     if (current == null) {
                         parent.rightChild = newNode;
+                        newNode.setParentNode(parent);
                         return;
                     }
                 }
@@ -79,8 +88,53 @@ public class Tree<T> {
             inOrder(localRoot.leftChild);
             System.out.println(localRoot.data);
             inOrder(localRoot.rightChild);
+
         }
     }
+
+    public void preOrder(Node<T> localRoot) {
+        if (localRoot != null) {
+            System.out.println(localRoot.data);
+            preOrder(localRoot.leftChild);
+            preOrder(localRoot.rightChild);
+
+        }
+    }
+
+    public Node buildBalanceBST(List<Node> nodes, int start, int end) {
+
+        // base case
+        if (start > end) {
+            return null;
+        }
+
+        int mid = (start + end) /2;
+
+        Node root = nodes.get(mid);
+
+        root.setLeftChild(buildBalanceBST(nodes, start, mid - 1));
+        root.setRightChild(buildBalanceBST(nodes, mid + 1, end));
+
+        return root;
+    }
+
+    public Node constructBalanceBST(Node root) {
+        List<Node> nodes = new ArrayList<>();
+        pushTreeNodes(root, nodes);
+
+        return buildBalanceBST(nodes, 0, nodes.size() - 1);
+    }
+
+    private void pushTreeNodes(Node root, List<Node> nodes) {
+        if (root == null) {
+            return;
+        }
+
+        pushTreeNodes(root.getLeftChild(), nodes);
+        nodes.add(root);
+        pushTreeNodes(root.getRightChild(), nodes);
+    }
+
 
     public void levelOrderTraversal(Node<T> node, int level) {
         if (node == null) {
@@ -115,9 +169,45 @@ public class Tree<T> {
     }
 
     // balance factor to decide the left heavy or right heavy cases
-    public int getBalance(Node<T> node) {
+    public int calculateBalanceFactor(Node<T> node) {
         if (node == null) return 0;
         return calculateTreeHeight(node.getLeftChild()) - calculateTreeHeight(node.getRightChild());
+    }
+
+    // balance the tree
+    public void makeBalance() {
+        Node<T> current = getLeftestLeaf();
+
+        if (current != null) {
+            Node<T> parent = current.getParentNode();
+            int balanceFactor = calculateBalanceFactor(current);
+            makeProperRotation(balanceFactor, current);
+        }
+    }
+
+    // decide rotate right or left
+    public void makeProperRotation(int balanceFactor, Node<T> node) {
+        if (balanceFactor > 1) { // left heavy, rotate right
+            if (node.getLeftChild() != null || node.getRightChild() != null) {
+                rightRotation(node);
+            }
+        } else if (balanceFactor < 1) { // right heavy, rotate left
+            if (node.getLeftChild() != null || node.getRightChild() != null) {
+                leftRotation(node);
+            }
+        }
+    }
+
+    // Get latest left leaf
+    public Node<T> getLeftestLeaf() {
+        Node<T> current = root;
+
+        if (root == null) return null;
+
+        while (current.leftChild != null) {
+            current = current.leftChild;
+        }
+        return current;
     }
 
     public void rightRotation(Node<T> node) {
