@@ -3,7 +3,9 @@ package minhho.bst;
 import minhho.models.Employee;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Tree<T> {
     private Node<T> root;
@@ -134,19 +136,21 @@ public class Tree<T> {
     }
 
 
-    public void levelOrderTraversal(Node<T> node, int level) {
-        if (node == null) {
-            return;
-        }
-
-        if (level == 0) {
-            System.out.println(node.data);
-        } else {
-            levelOrderTraversal(node.leftChild, level - 1);
-            levelOrderTraversal(node.rightChild, level - 1);
+    private void levelOrderTraversal(Node<T> root) {
+        Queue<Node> q = new LinkedList<Node>();
+        if (root == null) return;
+        q.add(root);
+        while(!q.isEmpty()) {
+            Node n = (Node) q.remove();
+            System.out.println(n.getData());
+            if (n.getLeftChild() != null) q.add(n.getLeftChild());
+            if (n.getRightChild() != null) q.add(n.getRightChild());
         }
     }
 
+    public void bft() {
+        levelOrderTraversal(root);
+    }
 
     // calculate the height of a give node
     public int calculateTreeHeight(Node<T> node) {
@@ -163,12 +167,7 @@ public class Tree<T> {
     }
 
 
-    public void bft() {
-        int height = calculateTreeHeight(root);
-        for (int i = 0; i < height; i++) {
-            levelOrderTraversal(root, i);
-        }
-    }
+
 
     public boolean delete(int key) {
         Node<T> current = root;
