@@ -162,7 +162,7 @@ public class MainController {
      * Performs BFT traversal
      */
     private static void bftTraversal() {
-        System.out.println("Performing BST traversal...");
+        System.out.println("Performing broad-width first traversal...");
         employeeTree.bft();
         System.out.println(TreePrinter.traversePreOrder(employeeTree.getRoot()));
 
