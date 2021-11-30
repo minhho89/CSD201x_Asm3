@@ -7,6 +7,11 @@ public class Node<T> {
     Node<T> leftChild;
     Node<T> rightChild;
 
+
+    public Node() {
+
+    }
+
     public void displayNode() {
 
     }
@@ -42,4 +47,5 @@ public class Node<T> {
     public void setRightChild(Node<T> rightChild) {
         this.rightChild = rightChild;
     }
+
 }

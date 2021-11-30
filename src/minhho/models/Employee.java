@@ -12,6 +12,10 @@ public class Employee {
     public Employee() {
     }
 
+    public Employee(int id) {
+        this.id = id;
+    }
+
     public Employee(int id, String name, LocalDate dob, String pob) {
         this.id = id;
         this.name = name;

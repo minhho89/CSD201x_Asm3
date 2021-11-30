@@ -2,6 +2,9 @@ package minhho.bst;
 
 import minhho.models.Employee;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tree<T> {
     private Node<T> root;
 
@@ -15,6 +18,10 @@ public class Tree<T> {
 
     public Node<T> getRoot() {
         return root;
+    }
+
+    public void setRoot(Node<T> root) {
+        this.root = root;
     }
 
     public Node<T> find (int key) {
@@ -79,8 +86,53 @@ public class Tree<T> {
             inOrder(localRoot.leftChild);
             System.out.println(localRoot.data);
             inOrder(localRoot.rightChild);
+
         }
     }
+
+    public void preOrder(Node<T> localRoot) {
+        if (localRoot != null) {
+            System.out.println(localRoot.data);
+            preOrder(localRoot.leftChild);
+            preOrder(localRoot.rightChild);
+
+        }
+    }
+
+    public Node buildBalanceBST(List<Node> nodes, int start, int end) {
+
+        // base case
+        if (start > end) {
+            return null;
+        }
+
+        int mid = (start + end) /2;
+
+        Node root = nodes.get(mid);
+
+        root.setLeftChild(buildBalanceBST(nodes, start, mid - 1));
+        root.setRightChild(buildBalanceBST(nodes, mid + 1, end));
+
+        return root;
+    }
+
+    public Node constructBalanceBST(Node root) {
+        List<Node> nodes = new ArrayList<>();
+        pushTreeNodes(root, nodes);
+
+        return buildBalanceBST(nodes, 0, nodes.size() - 1);
+    }
+
+    private void pushTreeNodes(Node root, List<Node> nodes) {
+        if (root == null) {
+            return;
+        }
+
+        pushTreeNodes(root.getLeftChild(), nodes);
+        nodes.add(root);
+        pushTreeNodes(root.getRightChild(), nodes);
+    }
+
 
     public void levelOrderTraversal(Node<T> node, int level) {
         if (node == null) {
@@ -95,18 +147,21 @@ public class Tree<T> {
         }
     }
 
-    public int calculateTreeHeight(Node<T> root) {
-        if (root == null) {
-            return 0;
+
+    // calculate the height of a give node
+    public int calculateTreeHeight(Node<T> node) {
+        if (node == null) {
+            return -1;
         } else {
             // height of left subtree
-            int lsh = calculateTreeHeight(root.leftChild);
+            int lsh = calculateTreeHeight(node.leftChild);
             // height of right subtree
-            int rsh = calculateTreeHeight(root.rightChild);
+            int rsh = calculateTreeHeight(node.rightChild);
             // height in each recursive call
             return Math.max(lsh, rsh) + 1;
         }
     }
+
 
     public void bft() {
         int height = calculateTreeHeight(root);
