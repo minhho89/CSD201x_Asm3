@@ -40,6 +40,18 @@ public class Vertex {
         }
     }
 
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    public List<Vertex> getNeighbors() {
+        return adjacencyList;
+    }
+
     @Override
     public String toString() {
         return name;
