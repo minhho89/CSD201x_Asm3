@@ -25,7 +25,6 @@ public class Test {
         list.add(v4);
         list.add(v5);
 
-        DepthFirstSearch dfs = new DepthFirstSearch();
-        dfs.dfs(list);
+
     }
 }

@@ -5,7 +5,7 @@ import minhho.models.Employee;
 
 import java.time.LocalDate;
 
-public class DataGenerator {
+public class TreeGenerator {
 
     public static Tree<Employee> myTree = new Tree<>();
 
