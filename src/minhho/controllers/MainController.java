@@ -3,6 +3,7 @@ package minhho.controllers;
 import minhho.bst.Node;
 import minhho.bst.Tree;
 import minhho.models.Employee;
+import minhho.utils.TreePrinter;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -14,19 +15,6 @@ import static minhho.utils.ValidityChecker.isNumeric;
 
 public class MainController {
     static Tree<Employee> employeeTree = new Tree<>();
-
-    //TODO: delete dummies
-    static {
-        employeeTree.insert(10, new Employee(10, "Nguyen Van A",
-                LocalDate.of(1999, 10, 10), "Can Tho"));
-        employeeTree.insert(4, new Employee(4, "Tran Thi B",
-                LocalDate.of(1989, 3, 20), "HCMC"));
-        employeeTree.insert(20, new Employee(20, "Le Ngoc C",
-                LocalDate.of(2000, 10, 10), "Da Lat"));
-        employeeTree.insert(2, new Employee(2, "Nguyen My",
-                LocalDate.of(1999, 04, 22), "Hanoi"));
-    }
-
 
     public static void run() {
         boolean isContinued = true;
@@ -89,7 +77,7 @@ public class MainController {
                         deleteById();
                         return;
                     case 6:
-                        System.out.println("Select 6");
+                        balanceTree();
                         return;
                     case 7:
                         System.out.println("Select 7");
@@ -109,6 +97,18 @@ public class MainController {
                 input = sc.nextLine();
             }
         }
+    }
+
+    private static void balanceTree() {
+        System.out.println("Before balancing");
+        System.out.println(TreePrinter.traversePreOrder(employeeTree.getRoot()));
+
+        System.out.println("");
+        System.out.println("Balancing started...");
+        employeeTree.setRoot(employeeTree.constructBalanceBST(employeeTree.getRoot()));
+
+        System.out.println("After balancing");
+        System.out.println(TreePrinter.traversePreOrder(employeeTree.getRoot()));
     }
 
     /**
@@ -145,8 +145,10 @@ public class MainController {
      * Performs BFT traversal
      */
     private static void bftTraversal() {
-        System.out.println("Performing BST traversal...");
+        System.out.println("Performing broad-width first traversal...");
         employeeTree.bft();
+        System.out.println(TreePrinter.traversePreOrder(employeeTree.getRoot()));
+
     }
 
     /**
@@ -187,6 +189,7 @@ public class MainController {
             System.out.println("BST is empty.");
         } else {
             employeeTree.inOrder(employeeTree.getRoot());
+            System.out.println(TreePrinter.traversePreOrder(employeeTree.getRoot()));
         }
     }
 

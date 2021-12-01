@@ -2,6 +2,11 @@ package minhho.bst;
 
 import minhho.models.Employee;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class Tree<T> {
     private Node<T> root;
 
@@ -15,6 +20,10 @@ public class Tree<T> {
 
     public Node<T> getRoot() {
         return root;
+    }
+
+    public void setRoot(Node<T> root) {
+        this.root = root;
     }
 
     public Node<T> find (int key) {
@@ -79,41 +88,86 @@ public class Tree<T> {
             inOrder(localRoot.leftChild);
             System.out.println(localRoot.data);
             inOrder(localRoot.rightChild);
+
         }
     }
 
-    public void levelOrderTraversal(Node<T> node, int level) {
-        if (node == null) {
+    public void preOrder(Node<T> localRoot) {
+        if (localRoot != null) {
+            System.out.println(localRoot.data);
+            preOrder(localRoot.leftChild);
+            preOrder(localRoot.rightChild);
+
+        }
+    }
+
+    public Node buildBalanceBST(List<Node> nodes, int start, int end) {
+
+        // base case
+        if (start > end) {
+            return null;
+        }
+
+        int mid = (start + end) /2;
+
+        Node root = nodes.get(mid);
+
+        root.setLeftChild(buildBalanceBST(nodes, start, mid - 1));
+        root.setRightChild(buildBalanceBST(nodes, mid + 1, end));
+
+        return root;
+    }
+
+    public Node constructBalanceBST(Node root) {
+        List<Node> nodes = new ArrayList<>();
+        pushTreeNodes(root, nodes);
+
+        return buildBalanceBST(nodes, 0, nodes.size() - 1);
+    }
+
+    private void pushTreeNodes(Node root, List<Node> nodes) {
+        if (root == null) {
             return;
         }
 
-        if (level == 0) {
-            System.out.println(node.data);
-        } else {
-            levelOrderTraversal(node.leftChild, level - 1);
-            levelOrderTraversal(node.rightChild, level - 1);
+        pushTreeNodes(root.getLeftChild(), nodes);
+        nodes.add(root);
+        pushTreeNodes(root.getRightChild(), nodes);
+    }
+
+
+    private void levelOrderTraversal(Node<T> root) {
+        Queue<Node> q = new LinkedList<Node>();
+        if (root == null) return;
+        q.add(root);
+        while(!q.isEmpty()) {
+            Node n = (Node) q.remove();
+            System.out.println(n.getData());
+            if (n.getLeftChild() != null) q.add(n.getLeftChild());
+            if (n.getRightChild() != null) q.add(n.getRightChild());
         }
     }
 
-    public int calculateTreeHeight(Node<T> root) {
-        if (root == null) {
-            return 0;
+    public void bft() {
+        levelOrderTraversal(root);
+    }
+
+    // calculate the height of a give node
+    public int calculateTreeHeight(Node<T> node) {
+        if (node == null) {
+            return -1;
         } else {
             // height of left subtree
-            int lsh = calculateTreeHeight(root.leftChild);
+            int lsh = calculateTreeHeight(node.leftChild);
             // height of right subtree
-            int rsh = calculateTreeHeight(root.rightChild);
+            int rsh = calculateTreeHeight(node.rightChild);
             // height in each recursive call
             return Math.max(lsh, rsh) + 1;
         }
     }
 
-    public void bft() {
-        int height = calculateTreeHeight(root);
-        for (int i = 0; i < height; i++) {
-            levelOrderTraversal(root, i);
-        }
-    }
+
+
 
     public boolean delete(int key) {
         Node<T> current = root;
