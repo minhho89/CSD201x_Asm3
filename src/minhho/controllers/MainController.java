@@ -2,7 +2,9 @@ package minhho.controllers;
 
 import minhho.bst.Node;
 import minhho.bst.Tree;
+import minhho.graph.Graph;
 import minhho.models.Employee;
+import minhho.utils.GraphDataGenerator;
 import minhho.utils.TreePrinter;
 
 import java.time.LocalDate;
@@ -80,7 +82,7 @@ public class MainController {
                         balanceTree();
                         return;
                     case 7:
-                        System.out.println("Select 7");
+                        dftCityGraph();
                         return;
                     case 8:
                         System.out.println("Select 8");
@@ -97,6 +99,14 @@ public class MainController {
                 input = sc.nextLine();
             }
         }
+    }
+
+    private static void dftCityGraph() {
+        Graph cityGraph = GraphDataGenerator.generate();
+
+        System.out.println("DFT for city graph...");
+
+        cityGraph.dfs();
     }
 
     private static void balanceTree() {

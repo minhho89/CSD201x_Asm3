@@ -5,7 +5,7 @@ import minhho.graph.Vertex;
 
 public class GraphDataGenerator {
 
-    public static void generate() {
+    public static Graph generate() {
         Graph graph = new Graph();
 
         Vertex a = new Vertex("A");
@@ -43,6 +43,8 @@ public class GraphDataGenerator {
         graph.addNeighbor(c, g);
 
         graph.addNeighbor(f, g);
+
+        return graph;
 
     }
 

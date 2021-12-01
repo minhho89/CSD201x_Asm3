@@ -22,8 +22,8 @@ public class Graph {
         list.add(v);
     }
 
-    public void dfs(List<Vertex> vertexList) {
-        for(Vertex v : vertexList) {
+    public void dfs() {
+        for(Vertex v : list) {
             if (!v.isVisited()) {
                 v.setVisited(true);
                 dfsHelper(v);
