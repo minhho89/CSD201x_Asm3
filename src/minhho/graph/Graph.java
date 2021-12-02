@@ -20,6 +20,7 @@ public class Graph {
         list.add(v);
     }
 
+    // Breath-first search
     public void bft(Vertex root) {
         Queue<Vertex> queue = new LinkedList<>();
 
@@ -43,7 +44,7 @@ public class Graph {
         }
     }
 
-
+    // Depth-first search
     public void dfs() {
         for(Vertex v : list) {
             if (!v.isVisited()) {
@@ -76,6 +77,8 @@ public class Graph {
 
     }
 
+
+    // Assigning distance from root to every vertex
     public void computePaths(Vertex sourceVertex) {
 
         sourceVertex.setDistance(0);        // Starting vertex
@@ -95,8 +98,8 @@ public class Graph {
 
                 if (newDistance < v.getDistance()) {
                     priorityQueue.remove(v);
-                    v.setDistance(newDistance);
-                    v.setPredecessor(actualVertex);
+                    v.setDistance(newDistance);         // assign
+                    v.setPredecessor(actualVertex);     // set Predecessor
                     priorityQueue.add(v);
                 }
             }

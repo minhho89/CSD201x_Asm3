@@ -18,21 +18,6 @@ import static minhho.utils.ValidityChecker.isNumeric;
 public class MainController {
     static Tree<Employee> employeeTree = new Tree<>();
 
-    static {
-        employeeTree.insert(20, new Employee(20, "Nguyen Van A",
-                LocalDate.of(1999, 10, 10), "Can Tho"));
-        employeeTree.insert(15, new Employee(15, "Tran Thi B",
-                LocalDate.of(1989, 3, 20), "HCMC"));
-        employeeTree.insert(10, new Employee(10, "Le Ngoc C",
-                LocalDate.of(2000, 10, 10), "Da Lat"));
-        employeeTree.insert(5, new Employee(5, "Nguyen My",
-                LocalDate.of(1999, 04, 22), "Hanoi"));
-        employeeTree.insert(2, new Employee(2, "Nguyen My",
-                LocalDate.of(1999, 04, 22), "Hanoi"));
-        employeeTree.insert(8, new Employee(8, "Nguyen My",
-                LocalDate.of(1999, 04, 22), "Hanoi"));
-    }
-
     public static void run() {
         boolean isContinued = true;
         printMenu();
@@ -123,6 +108,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Handles Breadth-First Traversal for CityGraph
+     */
     private static void bftCityGraph() {
         Graph cityGraph = GraphDataGenerator.generate();
 
@@ -131,6 +119,9 @@ public class MainController {
         cityGraph.bft(GraphDataGenerator.a);
     }
 
+    /**
+     * Handles Post-Order Traversal for BST
+     */
     private static void postOrderTraversal() {
         if (employeeTree.getRoot() == null) {
             System.out.println("BST is empty.");
@@ -141,6 +132,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Handles Pre-Order Traversal for BST
+     */
     public static void preOrderTraversal() {
         if (employeeTree.getRoot() == null) {
             System.out.println("BST is empty.");
@@ -151,12 +145,18 @@ public class MainController {
         }
     }
 
+    /**
+     * Handles calculating shortest path from A to F in the Graph
+     */
     private static void shortestPathFromAToF() {
         System.out.println("Computing shortest path from A to F using Dijkstra: ");
         GraphDataGenerator.printAtoF();
 
     }
 
+    /**
+     * Handles Depth-First Traversal for City Graph
+     */
     private static void dftCityGraph() {
         Graph cityGraph = GraphDataGenerator.generate();
 
@@ -165,6 +165,9 @@ public class MainController {
         cityGraph.dfs();
     }
 
+    /**
+     * Handles balancing the BST
+     */
     private static void balanceTree() {
         System.out.println("Before balancing");
         System.out.println(TreePrinter.drawTree(employeeTree.getRoot()));

@@ -14,10 +14,6 @@ public class Tree<T> {
 
     }
 
-    public Tree(Node<T> root) {
-        this.root = root;
-    }
-
     public Node<T> getRoot() {
         return root;
     }
@@ -26,6 +22,11 @@ public class Tree<T> {
         this.root = root;
     }
 
+    /**
+     * Search for a node by id
+     * @param key id to search
+     * @return found node, if not return null
+     */
     public Node<T> find (int key) {
 
         Node<T> current = root;                 // assumes non-empty tree
@@ -41,6 +42,11 @@ public class Tree<T> {
         return current;                         // found
     }
 
+    /**
+     * check if an input id is duplicated or not
+     * @param key search id
+     * @return true if duplicated, false if not
+     */
     public boolean isDuplicate(int key) {
 
         if (root == null) {
@@ -53,6 +59,11 @@ public class Tree<T> {
     }
 
 
+    /**
+     * Insert a new node to tree
+     * @param id
+     * @param data
+     */
     public void insert(int id, T data) {
 
         Node<T> newNode = new Node<>();                 // make new node
@@ -83,15 +94,23 @@ public class Tree<T> {
         }
     }
 
+    /**
+     * Recursively in-order traversal
+     * @param localRoot root of tree or sub-tree
+     */
     public void inOrder(Node<T> localRoot) {
+
         if (localRoot != null) {
             inOrder(localRoot.leftChild);
             System.out.println(localRoot.data);
             inOrder(localRoot.rightChild);
-
         }
     }
 
+    /**
+     * Recursively post-order traversal
+     * @param localRoot root of tree or sub-tree
+     */
     public void postOrder(Node<T> localRoot) {
         if (localRoot != null) {
             postOrder(localRoot.leftChild);
@@ -101,6 +120,10 @@ public class Tree<T> {
         }
     }
 
+    /**
+     * Recursively pre-order traversal
+     * @param localRoot root of tree or sub-tree
+     */
     public void preOrder(Node<T> localRoot) {
         if (localRoot != null) {
             System.out.println(localRoot.data);
@@ -110,7 +133,36 @@ public class Tree<T> {
         }
     }
 
-    public Node buildBalanceBST(List<Node> nodes, int start, int end) {
+    /**
+     *  MAKING A BALANCED TREE
+     */
+
+    /**
+     * Helper method to push nodes of a given BST into a list in an in-order method
+     * @param root
+     * @param nodes
+     */
+    private void pushTreeNodes(Node root, List<Node> nodes) {
+
+        // base case
+        if (root == null) {
+            return;
+        }
+
+        pushTreeNodes(root.getLeftChild(), nodes);
+        nodes.add(root);
+        pushTreeNodes(root.getRightChild(), nodes);
+    }
+
+    /**
+     * Helper method to construct a balanced BST
+     * Build a height-balanced BST from given nodes in sorted order
+     * @param nodes
+     * @param start
+     * @param end
+     * @return
+     */
+    private Node buildBalanceBST(List<Node> nodes, int start, int end) {
 
         // base case
         if (start > end) {
@@ -127,6 +179,11 @@ public class Tree<T> {
         return root;
     }
 
+    /**
+     * Pushes nodes to array in sorted order
+     * @param root
+     * @return
+     */
     public Node constructBalanceBST(Node root) {
         List<Node> nodes = new ArrayList<>();
         pushTreeNodes(root, nodes);
@@ -134,20 +191,15 @@ public class Tree<T> {
         return buildBalanceBST(nodes, 0, nodes.size() - 1);
     }
 
-    private void pushTreeNodes(Node root, List<Node> nodes) {
-        if (root == null) {
-            return;
-        }
-
-        pushTreeNodes(root.getLeftChild(), nodes);
-        nodes.add(root);
-        pushTreeNodes(root.getRightChild(), nodes);
-    }
-
-
+    /**
+     * Traversal by top-down level
+     * @param root
+     */
     private void levelOrderTraversal(Node<T> root) {
+
         Queue<Node> q = new LinkedList<Node>();
         if (root == null) return;
+
         q.add(root);
         while(!q.isEmpty()) {
             Node n = (Node) q.remove();
@@ -157,10 +209,18 @@ public class Tree<T> {
         }
     }
 
+    /**
+     * Performs top-down level traversal starting from root
+     */
     public void bft() {
         levelOrderTraversal(root);
     }
 
+    /**
+     * Delete a node by id
+     * @param key
+     * @return true if successfully deleted, else false
+     */
     public boolean delete(int key) {
         Node<T> current = root;
         Node<T> parent = root;
@@ -220,8 +280,11 @@ public class Tree<T> {
         return true;
     }
 
-
-
+    /**
+     * Get successor node for helping deleting node work
+     * @param delNode deleting node
+     * @return the deleting node's successor node
+     */
     private Node<T> getSuccessor(Node<T> delNode) {
         Node<T> successorParent = delNode;
         Node<T> succcessor = delNode;
