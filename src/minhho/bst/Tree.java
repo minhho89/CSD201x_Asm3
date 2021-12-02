@@ -92,6 +92,15 @@ public class Tree<T> {
         }
     }
 
+    public void postOrder(Node<T> localRoot) {
+        if (localRoot != null) {
+            preOrder(localRoot.leftChild);
+            preOrder(localRoot.rightChild);
+            System.out.println(localRoot.data);
+
+        }
+    }
+
     public void preOrder(Node<T> localRoot) {
         if (localRoot != null) {
             System.out.println(localRoot.data);
@@ -151,23 +160,6 @@ public class Tree<T> {
     public void bft() {
         levelOrderTraversal(root);
     }
-
-    // calculate the height of a give node
-    public int calculateTreeHeight(Node<T> node) {
-        if (node == null) {
-            return -1;
-        } else {
-            // height of left subtree
-            int lsh = calculateTreeHeight(node.leftChild);
-            // height of right subtree
-            int rsh = calculateTreeHeight(node.rightChild);
-            // height in each recursive call
-            return Math.max(lsh, rsh) + 1;
-        }
-    }
-
-
-
 
     public boolean delete(int key) {
         Node<T> current = root;

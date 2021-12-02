@@ -18,6 +18,21 @@ import static minhho.utils.ValidityChecker.isNumeric;
 public class MainController {
     static Tree<Employee> employeeTree = new Tree<>();
 
+    static {
+        employeeTree.insert(20, new Employee(20, "Nguyen Van A",
+                LocalDate.of(1999, 10, 10), "Can Tho"));
+        employeeTree.insert(15, new Employee(15, "Tran Thi B",
+                LocalDate.of(1989, 3, 20), "HCMC"));
+        employeeTree.insert(10, new Employee(10, "Le Ngoc C",
+                LocalDate.of(2000, 10, 10), "Da Lat"));
+        employeeTree.insert(5, new Employee(5, "Nguyen My",
+                LocalDate.of(1999, 04, 22), "Hanoi"));
+        employeeTree.insert(2, new Employee(2, "Nguyen My",
+                LocalDate.of(1999, 04, 22), "Hanoi"));
+        employeeTree.insert(8, new Employee(8, "Nguyen My",
+                LocalDate.of(1999, 04, 22), "Hanoi"));
+    }
+
     public static void run() {
         boolean isContinued = true;
         printMenu();
@@ -56,7 +71,7 @@ public class MainController {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Please select your option (0-8): ");
+        System.out.print("Please select your option (0-11): ");
         String input = sc.nextLine();
 
         while (true) {
@@ -87,14 +102,49 @@ public class MainController {
                     case 8:
                         shortestPathFromAToF();
                         return;
+                    case 9:
+                        postOrderTraversal();
+                        return;
+                    case 10:
+                        preOrderTraversal();
+                        return;
+                    case 11:
+                        bftCityGraph();
+                        return;
                     case 0:
                         System.out.println("Select 0");
                         exit(0);
                 }
             } else {
-                System.out.print("Invalid input. Please try again (0 - 8): ");
+                System.out.print("Invalid input. Please try again (0 - 11): ");
                 input = sc.nextLine();
             }
+        }
+    }
+
+    private static void bftCityGraph() {
+        Graph cityGraph = GraphDataGenerator.generate();
+
+        System.out.println("BFT for city graph...");
+
+        cityGraph.bft(GraphDataGenerator.a);
+    }
+
+    private static void postOrderTraversal() {
+        if (employeeTree.getRoot() == null) {
+            System.out.println("BST is empty.");
+        } else {
+            employeeTree.postOrder(employeeTree.getRoot());
+            System.out.println(TreePrinter.traversePreOrder(employeeTree.getRoot()));
+        }
+    }
+
+    public static void preOrderTraversal() {
+        if (employeeTree.getRoot() == null) {
+            System.out.println("BST is empty.");
+        } else {
+            employeeTree.preOrder(employeeTree.getRoot());
+            System.out.println(TreePrinter.traversePreOrder(employeeTree.getRoot()));
         }
     }
 
@@ -318,7 +368,7 @@ public class MainController {
         if (isNumeric(input) && (input.equals("0") ||
                 input.equals("1") || input.equals("2") || input.equals("3") ||
                 input.equals("4") || input.equals("5") || input.equals("6") || input.equals("7") ||
-                input.equals("8")))
+                input.equals("8") || input.equals("9") || input.equals("10") || input.equals("11")))
             return true;
         return false;
     }

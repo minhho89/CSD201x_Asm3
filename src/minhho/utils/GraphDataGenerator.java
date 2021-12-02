@@ -8,13 +8,13 @@ import java.util.List;
 
 public class GraphDataGenerator {
 
-    private static Vertex a;
-    private static Vertex b ;
-    private static Vertex c;
-    private static Vertex d ;
-    private static Vertex e;
-    private static Vertex f;
-    private static Vertex g;
+    public static Vertex a;
+     static Vertex b ;
+     static Vertex c;
+     static Vertex d ;
+     static Vertex e;
+     static Vertex f;
+     static Vertex g;
 
     public static Graph generate() {
         Graph graph = new Graph();
