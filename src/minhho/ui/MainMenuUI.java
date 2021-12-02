@@ -13,6 +13,11 @@ public class MainMenuUI {
         System.out.println("7. Perform DFT traverse in the Graph, print all city names");
         System.out.println("8. Using Dijkstra algorithm to detect shortest route from city A to city F, following below request:");
         System.out.println("Print shortest route and its length from city A to city E using Dijkstra algorithm");
+        System.out.println(" =============== ADVANCED FEATURES ===============");
+        System.out.println("9. Perform post-order BST traverse");
+        System.out.println("10. Perform pre-order BST traverse");
+        System.out.println("11. Perform BFT traverse in the Graph, print all city names");
+
         System.out.println("0. Quit the program");
     }
 }
