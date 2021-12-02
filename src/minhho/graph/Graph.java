@@ -20,6 +20,30 @@ public class Graph {
         list.add(v);
     }
 
+    public void bft(Vertex root) {
+        Queue<Vertex> queue = new LinkedList<>();
+
+        root.setVisited(true);
+        queue.add(root);
+
+        while( !queue.isEmpty() ){
+
+            Vertex actualVertex = queue.remove();
+            System.out.println (actualVertex);
+
+            for(Edge e : actualVertex.getNeighbors() ){
+
+                Vertex v = e.getTargetVertex();
+
+                if( !v.isVisited() ){
+                    v.setVisited(true);
+                    queue.add(v);
+                }
+            }
+        }
+    }
+
+
     public void dfs() {
         for(Vertex v : list) {
             if (!v.isVisited()) {
@@ -94,5 +118,6 @@ public class Graph {
 
         return shortestPathToTarget;
     }
+
 
 }
