@@ -16,23 +16,8 @@ public class Edge {
         return weight;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
-    public Vertex getStartVertex() {
-        return startVertex;
-    }
-
-    public void setStartVertex(Vertex startVertex) {
-        this.startVertex = startVertex;
-    }
-
     public Vertex getTargetVertex() {
         return targetVertex;
     }
 
-    public void setTargetVertex(Vertex targetVertex) {
-        this.targetVertex = targetVertex;
-    }
 }

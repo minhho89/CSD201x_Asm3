@@ -12,24 +12,12 @@ public class Node<T> {
 
     }
 
-    public void displayNode() {
-
-    }
-
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public T getData() {
         return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
     }
 
     public Node<T> getLeftChild() {

@@ -16,20 +16,9 @@ public class Vertex implements Comparable<Vertex>{
         this.adjacencyList = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public List<Edge> getAdjacencyList() {
         return adjacencyList;
-    }
-
-    public void setAdjacencyList(List<Edge> adjacencyList) {
-        this.adjacencyList = adjacencyList;
     }
 
     public Vertex getPredecessor() {
