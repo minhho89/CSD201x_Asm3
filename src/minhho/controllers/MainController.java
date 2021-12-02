@@ -37,6 +37,7 @@ public class MainController {
         boolean isContinued = true;
         printMenu();
         while (isContinued) {
+            printMenu();
             performSelect();
             isContinued = isContinued();
         }
