@@ -135,8 +135,9 @@ public class MainController {
         if (employeeTree.getRoot() == null) {
             System.out.println("BST is empty.");
         } else {
+            System.out.println("Performing Post-order Traversal...");
             employeeTree.postOrder(employeeTree.getRoot());
-            System.out.println(TreePrinter.traversePreOrder(employeeTree.getRoot()));
+            System.out.println(TreePrinter.drawTree(employeeTree.getRoot()));
         }
     }
 
@@ -144,8 +145,9 @@ public class MainController {
         if (employeeTree.getRoot() == null) {
             System.out.println("BST is empty.");
         } else {
+            System.out.println("Performing Pre-order Traversal...");
             employeeTree.preOrder(employeeTree.getRoot());
-            System.out.println(TreePrinter.traversePreOrder(employeeTree.getRoot()));
+            System.out.println(TreePrinter.drawTree(employeeTree.getRoot()));
         }
     }
 
@@ -165,14 +167,14 @@ public class MainController {
 
     private static void balanceTree() {
         System.out.println("Before balancing");
-        System.out.println(TreePrinter.traversePreOrder(employeeTree.getRoot()));
+        System.out.println(TreePrinter.drawTree(employeeTree.getRoot()));
 
         System.out.println("");
         System.out.println("Balancing started...");
         employeeTree.setRoot(employeeTree.constructBalanceBST(employeeTree.getRoot()));
 
         System.out.println("After balancing");
-        System.out.println(TreePrinter.traversePreOrder(employeeTree.getRoot()));
+        System.out.println(TreePrinter.drawTree(employeeTree.getRoot()));
     }
 
     /**
@@ -211,7 +213,7 @@ public class MainController {
     private static void bftTraversal() {
         System.out.println("Performing broad-width first traversal...");
         employeeTree.bft();
-        System.out.println(TreePrinter.traversePreOrder(employeeTree.getRoot()));
+        System.out.println(TreePrinter.drawTree(employeeTree.getRoot()));
 
     }
 
@@ -253,7 +255,7 @@ public class MainController {
             System.out.println("BST is empty.");
         } else {
             employeeTree.inOrder(employeeTree.getRoot());
-            System.out.println(TreePrinter.traversePreOrder(employeeTree.getRoot()));
+            System.out.println(TreePrinter.drawTree(employeeTree.getRoot()));
         }
     }
 

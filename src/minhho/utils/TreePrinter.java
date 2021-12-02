@@ -11,7 +11,7 @@ import java.io.PrintStream;
  */
 public class TreePrinter{
 
-    public static String traversePreOrder(Node root) {
+    public static String drawTree(Node root) {
         if (root == null) {
             return "";
         }

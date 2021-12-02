@@ -94,8 +94,8 @@ public class Tree<T> {
 
     public void postOrder(Node<T> localRoot) {
         if (localRoot != null) {
-            preOrder(localRoot.leftChild);
-            preOrder(localRoot.rightChild);
+            postOrder(localRoot.leftChild);
+            postOrder(localRoot.rightChild);
             System.out.println(localRoot.data);
 
         }
