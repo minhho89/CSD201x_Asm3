@@ -56,7 +56,7 @@ public class MainController {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Please select your option (0-9): ");
+        System.out.print("Please select your option (0-8): ");
         String input = sc.nextLine();
 
         while (true) {
@@ -85,20 +85,23 @@ public class MainController {
                         dftCityGraph();
                         return;
                     case 8:
-                        System.out.println("Select 8");
-                        return;
-                    case 9:
-                        System.out.println("Select 9");
+                        shortestPathFromAToF();
                         return;
                     case 0:
                         System.out.println("Select 0");
                         exit(0);
                 }
             } else {
-                System.out.print("Invalid input. Please try again (0 - 9): ");
+                System.out.print("Invalid input. Please try again (0 - 8): ");
                 input = sc.nextLine();
             }
         }
+    }
+
+    private static void shortestPathFromAToF() {
+        System.out.println("Computing shortest path from A to F using Dijkstra: ");
+        GraphDataGenerator.printAtoF();
+
     }
 
     private static void dftCityGraph() {
@@ -315,7 +318,7 @@ public class MainController {
         if (isNumeric(input) && (input.equals("0") ||
                 input.equals("1") || input.equals("2") || input.equals("3") ||
                 input.equals("4") || input.equals("5") || input.equals("6") || input.equals("7") ||
-                input.equals("8") || input.equals("9")))
+                input.equals("8")))
             return true;
         return false;
     }

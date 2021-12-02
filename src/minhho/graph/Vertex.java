@@ -3,11 +3,13 @@ package minhho.graph;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vertex {
+public class Vertex implements Comparable<Vertex>{
 
     private String name;
     private boolean visited;
-    private List<Vertex> adjacencyList;
+    private List<Edge> adjacencyList;
+    private Vertex predecessor;
+    private int distance = Integer.MAX_VALUE;   // distance from starting vertex
 
     public Vertex(String name) {
         this.name = name;
@@ -22,22 +24,32 @@ public class Vertex {
         this.name = name;
     }
 
-    public List<Vertex> getAdjacencyList() {
+    public List<Edge> getAdjacencyList() {
         return adjacencyList;
     }
 
-    public void setAdjacencyList(List<Vertex> adjacencyList) {
+    public void setAdjacencyList(List<Edge> adjacencyList) {
         this.adjacencyList = adjacencyList;
     }
 
-    public void addNeighbor(Vertex vertex) {
-        adjacencyList.add(vertex);
+    public Vertex getPredecessor() {
+        return predecessor;
     }
 
-    public void showNeighbors() {
-        for (Vertex v : adjacencyList) {
-            System.out.println(v);
-        }
+    public void setPredecessor(Vertex predecessor) {
+        this.predecessor = predecessor;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    public void addNeighbor(Edge edge) {
+        adjacencyList.add(edge);
     }
 
     public boolean isVisited() {
@@ -48,12 +60,17 @@ public class Vertex {
         this.visited = visited;
     }
 
-    public List<Vertex> getNeighbors() {
+    public List<Edge> getNeighbors() {
         return adjacencyList;
     }
 
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public int compareTo(Vertex otherVertex) {
+        return Integer.compare(this.distance, otherVertex.getDistance());
     }
 }

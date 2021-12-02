@@ -14,10 +14,10 @@ public class Test {
         Vertex v5 = new Vertex("E");
 
         List<Vertex> list = new ArrayList<>();
-        v1.addNeighbor(v2);
-        v1.addNeighbor(v3);
-        v3.addNeighbor(v4);
-        v4.addNeighbor(v5);
+//        v1.addNeighbor(v2);
+//        v1.addNeighbor(v3);
+//        v3.addNeighbor(v4);
+//        v4.addNeighbor(v5);
 
         list.add(v1);
         list.add(v2);
